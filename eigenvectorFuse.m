@@ -1,3 +1,4 @@
+%Author: Wei Ye (ye@dbs.ifi.lmu.de)
 function [E,f,whitened,mi]=eigenvectorFuse(A,k,baseconv)
 
 n=size(A,1);

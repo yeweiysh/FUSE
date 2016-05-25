@@ -1,3 +1,4 @@
+%Author: Wei Ye (ye@dbs.ifi.lmu.de)
 function f=fuse(A,k)
 
 baseconv=1e-5;

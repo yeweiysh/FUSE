@@ -1,3 +1,4 @@
+%Author: Wei Ye (ye@dbs.ifi.lmu.de)
 function [e_hat,mi]=fastGS(mi,e_hat,angles,co)
 
 num=find(mi(:,3)<-0.1);
