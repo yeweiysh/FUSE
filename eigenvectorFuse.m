@@ -2,7 +2,7 @@
 function [E,f,whitened,mi]=eigenvectorFuse(A,k,baseconv)
 
 n=size(A,1);
-W=normrow(A);
+W=normrow(A);%normalized affinity matrix
 E=zeros(k,n);
 
 for i=1:k
