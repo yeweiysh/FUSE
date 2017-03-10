@@ -1,5 +1,11 @@
 %Author: Wei Ye (ye@dbs.ifi.lmu.de)
 function [meanValue,stdDev]=fuse(A,k,label)
+% A: the affinity matrix
+% k: the number of clusters
+% label: the ground truth
+% meanValue: the mean value of AMI
+% stdDev: the standard deviation of AMI
+
 
 baseconv=1e-5;
 p=k+1;
