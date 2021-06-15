@@ -9,5 +9,5 @@ For all the synthetic data, pendigits, MNIST0127, deer, and elephant, I used the
 
 You can run the command [A_LS]=ZP(X,k) to get the locally-scaled affinity matrix, where the input X is data matrix, and the output A_LS is the locally-scaled affinity matrix.
 
-If you have any questions, please contact Wei Ye (yew@tongji.edu.cn). Thanks for your interest.
+If you have any questions, please contact Wei Ye (weiye@cs.ucsb.edu). Thanks for your interest.
 
