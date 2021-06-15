@@ -6,43 +6,40 @@ function [meanValue,stdDev]=fuse(A,k,label)
 % meanValue: the mean value of AMI
 % stdDev: the standard deviation of AMI
 
-unilabel = unique(label);
-newlabel = [];
-l=1;
-for i=1:length(unilabel)
-    index = find(label==unilabel(i));
-    newlabel(index,1)=l;
-    l = l+1;
-end
-
 baseconv=1e-5;
 p=k+1;
 
 for run=1:50
-    [E,pseudoeigen,whitened,mutualInfo]=eigenvectorFuse(A,p,baseconv);
-    kur=kurtosis(pseudoeigen);
-    [~,b]=sort(kur);
-    v=pseudoeigen(:,b(1:k));
-    nmi=[];
-    ami=[];
+    tic;[E,f,whitened,mi]=eigenvectorFuse(A,p,baseconv);
+    time(run,1)=toc;
+        
+    kk=kurtosis(f);
+    [~,b]=sort(kk);
+    ff=f(:,b(1:k));
     for i=1:100
-        C = kmeans(v,k);
-        [NMI1,AMI1,~,~]=ANMI_analytical_11(newlabel,C);
-        nmi(i)=NMI1;
-        ami(i)=AMI1;
+        C = kmeans(ff,k);
+        [NMI,AMI,AVI,~]=ANMI_analytical_11(label,C);
+        v(i) = NMI;
+        v1(i)=AMI;
+        v2(i)=AVI;
     end
-    nmi=round(100*nmi)/100;
-    ami=round(100*ami)/100;
-    uni_nmi=unique(nmi);
-    num=[];
-    for i=1:size(uni_nmi,2)
-        num(i)=length(find(nmi==uni_nmi(i)));
+    v=round(100*v)/100;
+    v1=round(100*v1)/100;
+    v2=round(100*v2)/100;
+    univ=unique(v);
+    for i=1:size(univ,2)
+        num(i)=size(find(v==univ(i)),1);
     end
     [~,c]=sort(num);
-    ind=find(nmi==uni_nmi(c(end)));
-    result_nmi(run)=nmi(ind(1));
-    result_ami(run)=ami(ind(1));
+    inde=find(v==univ(c(end)));
+    fuse_result(run,1)=univ(c(end));%NMI
+    fuse_result(run,2)=v1(inde(1));%AMI
+    fuse_result(run,3)=v2(inde(1));%AVI
+    clear ff;
+    clear c;
+    clear num;
+
 end
 
-meanValue=mean(result_ami);
-stdDev=std(result_ami);
+meanValue=mean(fuse_result(:,2));
+stdDev=mean(fuse_result(:,2));
